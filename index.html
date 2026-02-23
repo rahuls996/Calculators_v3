@@ -69,15 +69,48 @@
             </div>
           </div>
 
-          <div class="slider-group">
-            <div class="slider-header">
-              <label class="slider-label">Family members to insure</label>
-              <div class="slider-value-box"><span id="c1-familyValue">3</span></div>
+          <div class="option-group">
+            <label class="option-label">Members to insure</label>
+            <div class="member-stepper-group">
+              <div class="member-stepper">
+                <span class="member-stepper-label">Adults</span>
+                <div class="member-stepper-controls">
+                  <button class="stepper-btn" id="c1-adults-dec" aria-label="Decrease adults">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  </button>
+                  <span class="stepper-value" id="c1-adults-val">1</span>
+                  <button class="stepper-btn" id="c1-adults-inc" aria-label="Increase adults">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="member-stepper-divider"></div>
+              <div class="member-stepper">
+                <span class="member-stepper-label">Children</span>
+                <div class="member-stepper-controls">
+                  <button class="stepper-btn" id="c1-children-dec" aria-label="Decrease children">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  </button>
+                  <span class="stepper-value" id="c1-children-val">0</span>
+                  <button class="stepper-btn" id="c1-children-inc" aria-label="Increase children">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="member-stepper-divider"></div>
+              <div class="member-stepper">
+                <span class="member-stepper-label">Parents</span>
+                <div class="member-stepper-controls">
+                  <button class="stepper-btn" id="c1-parents-dec" aria-label="Decrease parents">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  </button>
+                  <span class="stepper-value" id="c1-parents-val">0</span>
+                  <button class="stepper-btn" id="c1-parents-inc" aria-label="Increase parents">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="slider-track-wrapper">
-              <input type="range" id="c1-familySlider" min="1" max="6" value="3" class="custom-slider">
-            </div>
-            <div class="slider-range"><span>1</span><span>6</span></div>
           </div>
 
           <div class="option-group">
@@ -133,7 +166,7 @@
               </div>
               <div class="breakdown-item">
                 <img class="breakdown-star" src="star.svg" alt="" width="20" height="20">
-                <span class="breakdown-text">Family size adjustment <strong id="c1-familyImpact">+₹3,100</strong></span>
+                <span class="breakdown-text">Member composition <strong id="c1-familyImpact">+₹0</strong></span>
               </div>
             </div>
           </div>

@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     coverSteps: [10, 25, 50, 100],
     coverLabels: ['₹10L', '₹25L', '₹50L', '₹1Cr'],
 
-    state: { age: 30, coverIndex: 0, family: 3, city: 'bengaluru' },
+    state: { age: 30, coverIndex: 0, adults: 1, children: 0, parents: 0, city: 'bengaluru' },
 
     calculate() {
       const base = 5000;
@@ -139,12 +139,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const ageComp = Math.round((base * ageMul - base) / 100) * 100;
       const cityMul = cityRiskMap[this.state.city] || 1.0;
       const cityComp = Math.round((base * (cityMul - 1) * 2) / 100) * 100;
-      const familyComp = Math.round((this.state.family - 1) * 1550 / 100) * 100;
       const cover = this.coverSteps[this.state.coverIndex];
       const coverMul = cover / 10;
       const coverComp = Math.round(base * (coverMul - 1) * 0.3 / 100) * 100;
-      const total = Math.max(base + ageComp + cityComp + familyComp + coverComp, 2000);
-      return { total, age: ageComp, city: cityComp, family: familyComp };
+      // Adults add full cost, children add 20%, parents add 80% each
+      const memberComp = Math.round(
+        ((this.state.adults - 1) * 1500 + this.state.children * 600 + this.state.parents * 2800) / 100
+      ) * 100;
+      const total = Math.max(base + ageComp + cityComp + coverComp + memberComp, 2000);
+      return { total, age: ageComp, city: cityComp, member: memberComp };
     },
 
     update() {
@@ -152,41 +155,61 @@ document.addEventListener('DOMContentLoaded', () => {
       animateAmount(document.getElementById('c1-premiumAmount'), formatINR(r.total));
       document.getElementById('c1-ageImpact').textContent = formatImpact(r.age);
       document.getElementById('c1-cityImpact').textContent = formatImpact(r.city);
-      document.getElementById('c1-familyImpact').textContent = formatImpact(r.family);
+      document.getElementById('c1-familyImpact').textContent = formatImpact(r.member);
+    },
+
+    updateStepperButtons() {
+      document.getElementById('c1-adults-dec').disabled = this.state.adults <= 1;
+      document.getElementById('c1-adults-inc').disabled = this.state.adults >= 4;
+      document.getElementById('c1-children-dec').disabled = this.state.children <= 0;
+      document.getElementById('c1-children-inc').disabled = this.state.children >= 4;
+      document.getElementById('c1-parents-dec').disabled = this.state.parents <= 0;
+      document.getElementById('c1-parents-inc').disabled = this.state.parents >= 2;
+    },
+
+    initStepper(decId, incId, valId, stateKey, min, max) {
+      document.getElementById(decId).addEventListener('click', () => {
+        if (this.state[stateKey] > min) {
+          this.state[stateKey]--;
+          document.getElementById(valId).textContent = this.state[stateKey];
+          this.updateStepperButtons();
+          this.update();
+        }
+      });
+      document.getElementById(incId).addEventListener('click', () => {
+        if (this.state[stateKey] < max) {
+          this.state[stateKey]++;
+          document.getElementById(valId).textContent = this.state[stateKey];
+          this.updateStepperButtons();
+          this.update();
+        }
+      });
     },
 
     init() {
-      const ageSlider = document.getElementById('c1-ageSlider');
-      const coverSlider = document.getElementById('c1-coverSlider');
-      const familySlider = document.getElementById('c1-familySlider');
-      const citySelect = document.getElementById('c1-citySelect');
-
-      ageSlider.addEventListener('input', (e) => {
+      document.getElementById('c1-ageSlider').addEventListener('input', (e) => {
         this.state.age = parseInt(e.target.value);
         document.getElementById('c1-ageValue').textContent = this.state.age;
         updateSliderProgress(e.target);
         this.update();
       });
 
-      coverSlider.addEventListener('input', (e) => {
+      document.getElementById('c1-coverSlider').addEventListener('input', (e) => {
         this.state.coverIndex = parseInt(e.target.value);
         document.getElementById('c1-coverValue').textContent = this.coverLabels[this.state.coverIndex];
         updateSliderProgress(e.target);
         this.update();
       });
 
-      familySlider.addEventListener('input', (e) => {
-        this.state.family = parseInt(e.target.value);
-        document.getElementById('c1-familyValue').textContent = this.state.family;
-        updateSliderProgress(e.target);
-        this.update();
-      });
-
-      citySelect.addEventListener('change', (e) => {
+      document.getElementById('c1-citySelect').addEventListener('change', (e) => {
         this.state.city = e.detail.value;
         this.update();
       });
 
+      this.initStepper('c1-adults-dec', 'c1-adults-inc', 'c1-adults-val', 'adults', 1, 4);
+      this.initStepper('c1-children-dec', 'c1-children-inc', 'c1-children-val', 'children', 0, 4);
+      this.initStepper('c1-parents-dec', 'c1-parents-inc', 'c1-parents-val', 'parents', 0, 2);
+      this.updateStepperButtons();
       this.update();
     }
   };

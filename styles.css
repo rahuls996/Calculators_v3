@@ -383,7 +383,95 @@ body {
 }
 
 /* ==========================================
-   Option Groups (Gender, Tobacco, City)
+   Member Stepper
+   ========================================== */
+
+.member-stepper-group {
+  display: flex;
+  align-items: stretch;
+  background: var(--surface-overlay);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.member-stepper {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 8px;
+}
+
+.member-stepper-divider {
+  width: 1px;
+  flex-shrink: 0;
+  background: var(--border-secondary);
+  margin: 12px 0;
+}
+
+.member-stepper-label {
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.member-stepper-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stepper-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-secondary);
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
+}
+
+.stepper-btn:hover {
+  border-color: var(--primary-200);
+  color: var(--primary-300);
+  background: var(--primary-50);
+}
+
+.stepper-btn:active {
+  background: var(--primary-50);
+  border-color: var(--primary-300);
+}
+
+.stepper-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.stepper-value {
+  font-family: var(--font-family);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  min-width: 18px;
+  text-align: center;
+  line-height: 1;
+}
+
+/* ==========================================
+   Option Groups (City)
    ========================================== */
 
 .option-group {
@@ -939,6 +1027,34 @@ body {
     height: 48px;
     font-size: 14px;
     min-width: 48px;
+  }
+
+  .stepper-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .stepper-btn svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .stepper-value {
+    font-size: 16px;
+    min-width: 14px;
+  }
+
+  .member-stepper-controls {
+    gap: 6px;
+  }
+
+  .member-stepper {
+    padding: 12px 6px;
+    gap: 6px;
+  }
+
+  .member-stepper-label {
+    font-size: 11px;
   }
 
   .multi-btn {
