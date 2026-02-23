@@ -128,7 +128,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // =============================================
 
   const c1 = {
-    state: { age: 30, cover: 30, family: 3, gender: 'male', city: 'bengaluru', tobacco: 'no' },
+    coverSteps: [10, 25, 50, 100],
+    coverLabels: ['₹10L', '₹25L', '₹50L', '₹1Cr'],
+
+    state: { age: 30, coverIndex: 0, family: 3, city: 'bengaluru' },
 
     calculate() {
       const base = 5000;
@@ -137,14 +140,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const cityMul = cityRiskMap[this.state.city] || 1.0;
       const cityComp = Math.round((base * (cityMul - 1) * 2) / 100) * 100;
       const familyComp = Math.round((this.state.family - 1) * 1550 / 100) * 100;
-      const coverMul = this.state.cover / 10;
+      const cover = this.coverSteps[this.state.coverIndex];
+      const coverMul = cover / 10;
       const coverComp = Math.round(base * (coverMul - 1) * 0.3 / 100) * 100;
-      const smokerComp = this.state.tobacco === 'yes'
-        ? Math.round(base * 0.35 / 100) * 100
-        : -Math.round(base * 0.16 / 100) * 100;
-      const genderAdj = this.state.gender === 'female' ? -200 : 0;
-      const total = Math.max(base + ageComp + cityComp + familyComp + coverComp + smokerComp + genderAdj, 2000);
-      return { total, age: ageComp, city: cityComp, family: familyComp, smoker: smokerComp };
+      const total = Math.max(base + ageComp + cityComp + familyComp + coverComp, 2000);
+      return { total, age: ageComp, city: cityComp, family: familyComp };
     },
 
     update() {
@@ -153,8 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('c1-ageImpact').textContent = formatImpact(r.age);
       document.getElementById('c1-cityImpact').textContent = formatImpact(r.city);
       document.getElementById('c1-familyImpact').textContent = formatImpact(r.family);
-      const label = this.state.tobacco === 'yes' ? 'Tobacco surcharge' : 'Non-smoker benefit';
-      document.getElementById('c1-smokerText').innerHTML = label + ' <strong id="c1-smokerImpact">' + formatImpact(r.smoker) + '</strong>';
     },
 
     init() {
@@ -171,8 +169,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       coverSlider.addEventListener('input', (e) => {
-        this.state.cover = parseInt(e.target.value);
-        document.getElementById('c1-coverValue').textContent = formatLakhsWithRupee(this.state.cover);
+        this.state.coverIndex = parseInt(e.target.value);
+        document.getElementById('c1-coverValue').textContent = this.coverLabels[this.state.coverIndex];
         updateSliderProgress(e.target);
         this.update();
       });
@@ -198,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // =============================================
 
   const c2 = {
-    state: { age: 30, income: 30, family: 2, existing: 30, company: 5, city: 'bengaluru', tobacco: 'no' },
+    state: { age: 30, income: 30, family: 2, existing: 30, company: 5, city: 'bengaluru' },
 
     calculate() {
       const base = 5000;
@@ -210,11 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const incomeFactor = Math.round(this.state.income * 30 / 100) * 100;
       const existingDiscount = -Math.round(this.state.existing * 15 / 100) * 100;
       const companyDiscount = -Math.round(this.state.company * 10 / 100) * 100;
-      const smokerComp = this.state.tobacco === 'yes'
-        ? Math.round(base * 0.35 / 100) * 100
-        : -Math.round(base * 0.16 / 100) * 100;
-      const total = Math.max(base + ageComp + cityComp + familyComp + incomeFactor + existingDiscount + companyDiscount + smokerComp, 2000);
-      return { total, age: ageComp, city: cityComp, family: familyComp, smoker: smokerComp };
+      const total = Math.max(base + ageComp + cityComp + familyComp + incomeFactor + existingDiscount + companyDiscount, 2000);
+      return { total, age: ageComp, city: cityComp, family: familyComp };
     },
 
     update() {
@@ -223,8 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('c2-ageImpact').textContent = formatImpact(r.age);
       document.getElementById('c2-cityImpact').textContent = formatImpact(r.city);
       document.getElementById('c2-familyImpact').textContent = formatImpact(r.family);
-      const label = this.state.tobacco === 'yes' ? 'Tobacco surcharge' : 'Non-smoker benefit';
-      document.getElementById('c2-smokerText').innerHTML = label + ' <strong id="c2-smokerImpact">' + formatImpact(r.smoker) + '</strong>';
     },
 
     init() {
