@@ -1,0 +1,326 @@
+/* ==========================================
+   Variation Labels
+   ========================================== */
+
+.var-label {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 6px 14px;
+  border-radius: 36px;
+  margin-bottom: 16px;
+}
+
+.var-label-a {
+  background: #FFF3E5;
+  color: #B65C0C;
+}
+
+.var-label-b {
+  background: #F0FDF4;
+  color: #16A34A;
+}
+
+.var-label-c {
+  background: #EFF6FF;
+  color: #1D4ED8;
+}
+
+/* ==========================================
+   Phone Input
+   ========================================== */
+
+.phone-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.required-star {
+  color: #EF4444;
+}
+
+.phone-input-wrapper {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  background: var(--color-bg-overlay);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.phone-input-wrapper:focus-within {
+  border-color: var(--color-brand-mid);
+  box-shadow: 0 0 0 1px var(--color-brand-mid);
+}
+
+.phone-input-wrapper.error {
+  border-color: #EF4444;
+  box-shadow: 0 0 0 1px #EF4444;
+}
+
+.phone-prefix {
+  padding: 0 12px 0 16px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  border-right: 1px solid var(--color-border-default);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.phone-input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  padding: 0 16px;
+}
+
+.phone-input::placeholder {
+  color: var(--color-text-secondary);
+  font-weight: 400;
+}
+
+.phone-error {
+  font-size: 13px;
+  font-weight: 500;
+  color: #EF4444;
+  display: none;
+}
+
+.phone-error.visible {
+  display: block;
+}
+
+.phone-hint {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================
+   Results locked state
+   ========================================== */
+
+.results-locked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.results-locked svg {
+  color: var(--grey-300);
+}
+
+.results-locked p {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  max-width: 220px;
+}
+
+/* ==========================================
+   WhatsApp Soft Capture (Variation B)
+   ========================================== */
+
+.whatsapp-capture {
+  margin-top: 24px;
+  padding: 20px;
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.whatsapp-capture-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #16A34A;
+}
+
+.whatsapp-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.whatsapp-input-row .phone-input-wrapper {
+  flex: 1;
+  height: 44px;
+  background: white;
+}
+
+.whatsapp-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 20px;
+  background: #16A34A;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.whatsapp-btn:hover {
+  background: #15803D;
+}
+
+.whatsapp-success {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #16A34A;
+}
+
+/* ==========================================
+   Modal (Variation C)
+   ========================================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.48);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal {
+  background: var(--color-bg-overlay);
+  border-radius: var(--radius-2xl);
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  animation: slideUp 0.25s ease;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.18);
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: var(--grey-100);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  transition: background 0.2s ease;
+}
+
+.modal-close:hover {
+  background: var(--grey-200);
+}
+
+.modal-icon {
+  margin-bottom: 4px;
+}
+
+.modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: -0.3px;
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
+.modal-subtitle {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  color: var(--color-text-secondary);
+  text-align: center;
+  max-width: 320px;
+}
+
+.modal .phone-input-wrapper {
+  width: 100%;
+}
+
+.modal .cta-button {
+  margin-top: 4px;
+}
+
+.modal-skip {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.modal-skip:hover {
+  color: var(--color-text-primary);
+}
+
+/* ==========================================
+   Responsive
+   ========================================== */
+
+@media (max-width: 480px) {
+  .modal {
+    padding: 32px 24px;
+  }
+
+  .whatsapp-input-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .whatsapp-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
