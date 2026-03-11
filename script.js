@@ -235,6 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const diff = future - r.total;
       document.getElementById('c1-futureValue').textContent = formatINR(future);
       document.getElementById('c1-futureDiff').textContent = '+' + formatINR(diff).replace('₹ ', '₹') + '/yr';
+      if (typeof updateBuyCtaUrls === 'function') updateBuyCtaUrls();
     },
 
     updateStepperButtons() {
@@ -342,6 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const diff = future - r.total;
       document.getElementById('c2-futureValue').textContent = formatINR(future);
       document.getElementById('c2-futureDiff').textContent = '+' + formatINR(diff).replace('₹ ', '₹') + '/yr';
+      if (typeof updateBuyCtaUrls === 'function') updateBuyCtaUrls();
     },
 
     init() {
@@ -461,6 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const diff = future - r.total;
       document.getElementById('c3-futureValue').textContent = formatINR(future);
       document.getElementById('c3-futureDiff').textContent = '+' + formatINR(diff).replace('₹ ', '₹') + '/yr';
+      if (typeof updateBuyCtaUrls === 'function') updateBuyCtaUrls();
     },
 
     init() {
@@ -537,8 +540,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const r = this.calculate();
       animateAmount(document.getElementById('c4-yearsAmount'), r.years + ' years');
       const point1 = document.getElementById('c4-point1');
-      const newPoint1 = 'Covers your earning years until retirement at <strong>' + r.retireAge + '</strong>';
+      const newPoint1 = 'Protects your income until you retire at <strong>' + r.retireAge + '</strong>';
       if (point1.innerHTML !== newPoint1) point1.innerHTML = newPoint1;
+      if (typeof updateBuyCtaUrls === 'function') updateBuyCtaUrls();
     },
 
     init() {
@@ -626,6 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
       animateValue(document.getElementById('c5-yearsLeft'), r.yearsLeft + ' yrs');
       animateValue(document.getElementById('c5-netContrib'), this.formatHLV(Math.round(r.netAnnual / 100000) * 100000) + '/yr');
       animateValue(document.getElementById('c5-recommended'), this.formatHLV(r.hlv));
+      if (typeof updateBuyCtaUrls === 'function') updateBuyCtaUrls();
     },
 
     init() {
@@ -725,6 +730,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const diff = future - r.total;
       document.getElementById('c6-futureValue').textContent = formatINR(future);
       document.getElementById('c6-futureDiff').textContent = '+' + formatINR(diff).replace('₹ ', '₹') + '/yr';
+      if (typeof updateBuyCtaUrls === 'function') updateBuyCtaUrls();
     },
 
     init() {
@@ -847,61 +853,62 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // =============================================
-  // WhatsApp Soft Lead Capture
+  // Buy CTA — Dynamic URL with calculator params
   // =============================================
 
-  document.querySelectorAll('.wa-trigger').forEach(trigger => {
-    trigger.addEventListener('click', () => {
-      const calcId = trigger.dataset.waCalc;
-      const captureEl = document.getElementById(`${calcId}-waCapture`);
-      captureEl.classList.add('open');
-      const phoneInput = document.getElementById(`${calcId}-waPhone`);
-      setTimeout(() => phoneInput.focus(), 100);
+  const buyBaseUrls = {
+    c1: 'https://www.acko.com/health-insurance/buy',
+    c2: 'https://www.acko.com/health-insurance/buy',
+    c3: 'https://www.acko.com/term-life-insurance/buy',
+    c4: 'https://www.acko.com/term-life-insurance/buy',
+    c5: 'https://www.acko.com/term-life-insurance/buy',
+    c6: 'https://www.acko.com/term-life-insurance/buy'
+  };
+
+  function buildBuyUrl(calcId) {
+    const base = buyBaseUrls[calcId] || '#';
+    const params = new URLSearchParams();
+    params.set('utm_source', 'calculator');
+    params.set('utm_medium', 'seo');
+
+    const calcObj = { c1, c2, c3, c4, c5, c6 }[calcId];
+    if (!calcObj) return base;
+
+    params.set('age', calcObj.state.age);
+
+    if (calcId === 'c1') {
+      params.set('cover', c1.coverSteps[c1.state.coverIndex] + '');
+      params.set('adults', c1.state.adults);
+      params.set('children', c1.state.children);
+      params.set('city', c1.state.city);
+    } else if (calcId === 'c2') {
+      params.set('income', c2.state.income);
+      params.set('family', c2.state.family);
+      params.set('city', c2.state.city);
+    } else if (calcId === 'c3') {
+      params.set('income', c3.state.income);
+      params.set('dependents', c3.state.dependents);
+    } else if (calcId === 'c4') {
+      params.set('term', c4.calculate().years);
+      params.set('retire_age', c4.state.retireAge);
+    } else if (calcId === 'c5') {
+      params.set('hlv', c5.calculate().hlv);
+      params.set('income', c5.state.income);
+    } else if (calcId === 'c6') {
+      params.set('cover', c6.coverSteps[c6.state.coverIndex] + '');
+      params.set('term', c6.state.term);
+      params.set('income', c6.state.income);
+    }
+
+    return base + '?' + params.toString();
+  }
+
+  function updateBuyCtaUrls() {
+    ['c1', 'c2', 'c3', 'c4', 'c5', 'c6'].forEach(id => {
+      const el = document.getElementById(id + '-buyCta');
+      if (el) el.href = buildBuyUrl(id);
     });
-  });
-
-  document.querySelectorAll('.wa-phone').forEach(input => {
-    input.addEventListener('input', () => {
-      input.value = input.value.replace(/\D/g, '');
-      const group = input.closest('.wa-input-group');
-      const errorEl = document.getElementById(input.id.replace('waPhone', 'waError'));
-      group.classList.remove('error');
-      if (errorEl) { errorEl.textContent = ''; errorEl.classList.remove('visible'); }
-    });
-  });
-
-  document.querySelectorAll('.wa-send-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const calcId = btn.dataset.waCalc;
-      const input = document.getElementById(`${calcId}-waPhone`);
-      const group = input.closest('.wa-input-group');
-      const errorEl = document.getElementById(`${calcId}-waError`);
-      const captureEl = document.getElementById(`${calcId}-waCapture`);
-      const phone = input.value.trim();
-
-      if (phone.length === 0) {
-        group.classList.add('error');
-        errorEl.textContent = 'Enter your mobile number';
-        errorEl.classList.add('visible');
-        input.focus();
-        return;
-      }
-      if (phone.length !== 10 || !/^[6-9]/.test(phone)) {
-        group.classList.add('error');
-        errorEl.textContent = 'Enter a valid 10-digit number';
-        errorEl.classList.add('visible');
-        input.focus();
-        return;
-      }
-
-      btn.classList.add('sending');
-      setTimeout(() => {
-        btn.classList.remove('sending');
-        captureEl.classList.remove('open');
-        captureEl.classList.add('sent');
-      }, 800);
-    });
-  });
+  }
 
   // =============================================
   // Initialize

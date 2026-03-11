@@ -808,7 +808,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: var(--scale-32);
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-2xl);
@@ -957,165 +957,60 @@ body {
 }
 
 /* ==========================================
-   WhatsApp — Progressive Disclosure
+   Buy CTA — Bottom Link
    ========================================== */
 
-.wa-capture {
-  margin-top: var(--scale-24);
-  text-align: center;
+.buy-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: auto;
+  padding: var(--scale-16) 0 0;
+  border-top: 1px dashed var(--color-border-default);
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: auto;
+  padding-top: var(--scale-20);
 }
 
-.wa-trigger {
+.buy-cta-text {
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  line-height: 20px;
+}
+
+.buy-cta-action {
   display: inline-flex;
   align-items: center;
-  gap: var(--scale-8);
-  padding: 10px var(--scale-20);
-  background: none;
-  border: 1.5px solid #25D366;
-  border-radius: 100px;
-  color: #25D366;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--purple-50);
+  border: 1.5px solid var(--purple-200);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-family);
   font-size: 13px;
   font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  color: var(--color-brand-primary);
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
-.wa-trigger:hover {
-  background: #25D366;
-  color: #fff;
+.buy-cta:hover .buy-cta-action {
+  background: var(--purple-100);
+  border-color: var(--color-brand-mid);
+  box-shadow: 0 2px 8px rgba(104, 65, 230, 0.15);
 }
 
-.wa-trigger:active {
-  transform: scale(0.97);
-}
-
-.wa-trigger-icon {
+.buy-cta-action svg {
   flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
-.wa-expand {
-  display: none;
-  margin-top: var(--scale-12);
-}
-
-.wa-capture.open .wa-trigger {
-  display: none;
-}
-
-.wa-capture.open .wa-expand {
-  display: block;
-}
-
-.wa-input-group {
-  display: flex;
-  align-items: center;
-  background: var(--surface-primary);
-  border: 1.5px solid var(--border-default);
-  border-radius: 100px;
-  height: 42px;
-  padding: 0 4px 0 var(--scale-16);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.wa-input-group:focus-within {
-  border-color: #25D366;
-  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
-}
-
-.wa-input-group.error {
-  border-color: #ef4444;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.06);
-}
-
-.wa-prefix {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-tertiary);
-  margin-right: 4px;
-  user-select: none;
-}
-
-.wa-phone {
-  flex: 1;
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 14px;
-  font-family: inherit;
-  color: var(--text-primary);
-  min-width: 0;
-}
-
-.wa-phone::placeholder {
-  color: var(--text-tertiary);
-  font-size: 13px;
-}
-
-.wa-send-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  background: #25D366;
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: background 0.15s ease, transform 0.1s ease;
-}
-
-.wa-send-btn:hover {
-  background: #1ead55;
-}
-
-.wa-send-btn:active {
-  transform: scale(0.92);
-}
-
-.wa-send-btn.sending {
-  opacity: 0.6;
-  pointer-events: none;
-}
-
-.wa-error {
-  font-size: 11px;
-  color: #ef4444;
-  margin: 0;
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.2s ease, margin 0.2s ease;
-}
-
-.wa-error.visible {
-  max-height: 24px;
-  margin-top: 6px;
-}
-
-.wa-success {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  gap: var(--scale-8);
-  font-size: 13px;
-  font-weight: 500;
-  color: #1a9e46;
-  padding: 10px 0;
-}
-
-.wa-success svg {
-  color: #25D366;
-}
-
-.wa-capture.sent .wa-trigger,
-.wa-capture.sent .wa-expand {
-  display: none;
-}
-
-.wa-capture.sent .wa-success {
-  display: flex;
+.buy-cta:hover .buy-cta-action svg {
+  transform: translateX(3px);
 }
 
 /* ==========================================
@@ -1367,16 +1262,17 @@ body {
     margin-bottom: var(--scale-24);
   }
 
-  .wa-capture {
-    margin-top: var(--scale-16);
+  .buy-cta {
+    padding-top: var(--scale-16);
+    margin-top: var(--scale-20);
   }
 
-  .wa-trigger {
+  .buy-cta-text {
     font-size: 12px;
-    padding: 9px var(--scale-16);
   }
 
-  .wa-input-group {
-    height: 40px;
+  .buy-cta-action {
+    font-size: 12px;
+    padding: 7px 14px;
   }
 }
