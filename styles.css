@@ -887,57 +887,52 @@ body {
   line-height: 18px;
 }
 
-/* Plans CTA Block — Figma design: two-section card */
+/* Plans CTA Block — matches Figma node 3127:1357 exactly */
 .plans-block {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: flex-start;
   margin-top: auto;
   border: 1.5px solid #5920c5;
-  border-radius: var(--radius-lg);
+  border-radius: 16px;
   overflow: hidden;
-  background: #f8f7fc;
+  width: 100%;
 }
 
-.plans-block-header {
+/* Top section: icon + starting price */
+.plans-block-top {
   display: flex;
   align-items: center;
-  gap: var(--scale-8);
+  gap: var(--scale-4);
   padding: var(--scale-16);
-  padding-bottom: var(--scale-8);
+  background: #f8f7fc;
+  width: 100%;
 }
 
-.plans-block-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  background: rgba(104, 65, 230, 0.08);
-  border-radius: var(--radius-md);
+.plans-block-icon-img {
+  width: 66px;
+  height: 66px;
   flex-shrink: 0;
-}
-
-.plans-block-icon svg {
-  width: 28px;
-  height: 28px;
+  object-fit: contain;
 }
 
 .plans-block-text {
   font-family: var(--font-family);
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 600;
-  line-height: 28px;
-  color: var(--grey-800);
+  line-height: 30px;
+  color: rgba(0, 0, 0, 0.88);
   margin: 0;
 }
 
+/* Trust row: hospital icon | divider | blood-test icon */
 .plans-trust {
   display: flex;
   align-items: center;
   padding: var(--scale-12) var(--scale-16);
+  background: #f8f7fc;
+  width: 100%;
   gap: 0;
-  background: rgba(255, 255, 255, 0.06);
 }
 
 .plans-trust-item {
@@ -946,36 +941,43 @@ body {
   gap: var(--scale-8);
   flex: 1;
   font-family: var(--font-family);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   color: #121212;
   line-height: 18px;
 }
 
-.plans-trust-item svg {
-  width: 20px;
-  height: 20px;
+.plans-trust-item img {
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
 }
 
 .plans-trust-divider {
   display: block;
   width: 1px;
-  height: 36px;
+  align-self: stretch;
   background: var(--color-border-default);
   margin: 0 var(--scale-12);
   flex-shrink: 0;
+}
+
+/* Bottom section: view plans button */
+.plans-block-bottom {
+  background: #f8f7fc;
+  padding: 4px var(--scale-12) var(--scale-12);
+  width: 100%;
 }
 
 .plans-block-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--scale-6);
-  margin: 4px var(--scale-12) var(--scale-12);
-  padding: 13px var(--scale-16);
+  gap: 6px;
+  width: 100%;
+  padding: var(--scale-12) var(--scale-16);
   background: #fff;
-  border: 1.5px solid #040222;
+  border: 1px solid #040222;
   border-radius: var(--radius-md);
   color: #040222;
   font-family: var(--font-family);
@@ -991,7 +993,7 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.plans-block-btn svg {
+.plans-block-btn img {
   width: 16px;
   height: 16px;
   flex-shrink: 0;
@@ -1255,14 +1257,19 @@ body {
     margin-top: var(--scale-20);
   }
 
+  .plans-block-top {
+    padding: var(--scale-12);
+    gap: var(--scale-8);
+  }
+
+  .plans-block-icon-img {
+    width: 48px;
+    height: 48px;
+  }
+
   .plans-block-text {
     font-size: 18px;
     line-height: 24px;
-  }
-
-  .plans-block-header {
-    padding: var(--scale-12);
-    padding-bottom: var(--scale-8);
   }
 
   .plans-trust {
@@ -1274,12 +1281,20 @@ body {
     line-height: 16px;
   }
 
+  .plans-trust-item img {
+    width: 22px;
+    height: 22px;
+  }
+
   .plans-trust-divider {
     margin: 0 var(--scale-8);
   }
 
+  .plans-block-bottom {
+    padding: 4px var(--scale-10) var(--scale-10);
+  }
+
   .plans-block-btn {
-    margin: 4px var(--scale-10) var(--scale-10);
     padding: 11px var(--scale-12);
     font-size: 13px;
   }
