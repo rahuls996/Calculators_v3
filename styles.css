@@ -1073,7 +1073,7 @@ body {
   }
 
   .calculator-section {
-    padding: var(--scale-12) var(--scale-8);
+    padding: var(--scale-8);
   }
 
   .calculator-container {
@@ -1082,16 +1082,29 @@ body {
   }
 
   .input-panel {
-    gap: var(--scale-16);
-    padding-bottom: 68px;
+    gap: var(--scale-12);
+    padding-bottom: 64px;
   }
 
   .slider-group {
-    gap: var(--scale-4);
+    gap: 0;
+  }
+
+  .slider-header {
+    min-height: 40px;
+  }
+
+  .slider-track-wrapper {
+    padding: var(--scale-8) 0 var(--scale-10);
+  }
+
+  .slider-range {
+    font-size: 12px;
+    margin-top: -4px;
   }
 
   .toggle-buttons {
-    gap: var(--scale-12);
+    gap: var(--scale-8);
   }
 
   .multi-select-grid {
@@ -1105,8 +1118,8 @@ body {
   }
 
   .premium-amount {
-    font-size: 32px;
-    line-height: 40px;
+    font-size: 36px;
+    line-height: 42px;
     letter-spacing: -0.5px;
   }
 
@@ -1119,10 +1132,6 @@ body {
     padding: var(--scale-8) var(--scale-12);
     height: 40px;
     min-width: 50px;
-  }
-
-  .slider-range {
-    font-size: 12px;
   }
 
   .slider-step {
@@ -1145,7 +1154,7 @@ body {
   .member-stepper {
     flex-direction: row;
     justify-content: space-between;
-    padding: var(--scale-12) var(--scale-16);
+    padding: var(--scale-10) var(--scale-12);
     gap: 0;
     border: none;
     border-radius: 0;
@@ -1246,34 +1255,34 @@ body {
   }
 
   .results-panel {
-    padding: var(--scale-24) var(--scale-16);
+    padding: var(--scale-16) var(--scale-12);
   }
 
   .premium-display {
-    margin-bottom: var(--scale-16);
+    margin-bottom: var(--scale-12);
   }
 
   .plans-block {
-    margin-top: var(--scale-20);
+    margin-top: var(--scale-12);
   }
 
   .plans-block-top {
-    padding: var(--scale-12);
+    padding: var(--scale-10) var(--scale-12);
     gap: var(--scale-8);
   }
 
   .plans-block-icon-img {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
   }
 
   .plans-block-text {
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 17px;
+    line-height: 22px;
   }
 
   .plans-trust {
-    padding: var(--scale-10) var(--scale-12);
+    padding: var(--scale-8) var(--scale-12);
   }
 
   .plans-trust-item {
